@@ -4,7 +4,7 @@ import Hero from "../sections/Hero";
 import Work from "../sections/Work";
 import Services from "../sections/Services";
 import About from "../sections/About";
-import Team from "../sections/Team";
+// import Team from "../sections/Team";
 import Technologies from "../sections/Technologies";
 import Pricing from "../sections/Pricing";
 import Contact from "../sections/Contact";
@@ -18,7 +18,7 @@ export default function Home() {
         <Work />
         <Services />
         <About />
-        <Team />
+        {/* <Team /> */}
         <Technologies />
         <Pricing />
         <Contact />

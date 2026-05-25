@@ -6,7 +6,6 @@ const links = [
   { label: "Work", href: "#work" },
   { label: "Services", href: "#services" },
   { label: "About", href: "#about" },
-  { label: "Team", href: "#team" },
   { label: "Technologies", href: "#technologies" },
   { label: "Pricing", href: "#pricing" },
   { label: "Contact", href: "#contact" },
@@ -17,34 +16,53 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+
     onScroll();
-    window.addEventListener("scroll", onScroll);
+
+    window.addEventListener("scroll", onScroll, {
+      passive: true,
+    });
+
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
     <>
       <header
-        className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-          scrolled ? "backdrop-blur-md bg-black/60 border-b border-white/[0.08]" : "bg-transparent"
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? "border-b border-white/[0.08] bg-black/60 backdrop-blur-md"
+            : "bg-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
-          <a href="#" className="font-bold tracking-tight text-lg">STUDIO.</a>
-          <nav className="hidden lg:flex items-center gap-8">
-            {links.map((l) => (
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-10">
+          {/* LOGO */}
+          <a
+            href="#"
+            className="text-lg font-bold tracking-tight text-white"
+          >
+            QODEX.DEV
+          </a>
+
+          {/* DESKTOP NAV */}
+          <nav className="hidden items-center gap-8 lg:flex">
+            {links.map((link) => (
               <a
-                key={l.href}
-                href={l.href}
-                className="text-sm text-zinc-400 hover:text-white transition-colors"
+                key={link.href}
+                href={link.href}
+                className="text-sm text-zinc-400 transition-colors duration-300 hover:text-white"
               >
-                {l.label}
+                {link.label}
               </a>
             ))}
           </nav>
+
+          {/* MOBILE MENU BUTTON */}
           <button
-            className="lg:hidden text-white"
+            className="text-white lg:hidden"
             onClick={() => setOpen(true)}
             aria-label="Open menu"
           >
@@ -53,6 +71,7 @@ export default function Navbar() {
         </div>
       </header>
 
+      {/* MOBILE MENU */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -61,24 +80,34 @@ export default function Navbar() {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[60] bg-black/95 backdrop-blur-xl lg:hidden"
           >
-            <div className="flex items-center justify-between px-6 h-16 border-b border-white/[0.08]">
-              <span className="font-bold tracking-tight text-lg">STUDIO.</span>
-              <button onClick={() => setOpen(false)} aria-label="Close menu">
+            {/* TOP BAR */}
+            <div className="flex h-16 items-center justify-between border-b border-white/[0.08] px-6">
+              <span className="text-lg font-bold tracking-tight text-white">
+                QODEX.DEV
+              </span>
+
+              <button
+                onClick={() => setOpen(false)}
+                aria-label="Close menu"
+                className="text-white"
+              >
                 <X size={22} />
               </button>
             </div>
-            <nav className="flex flex-col items-center justify-center gap-8 mt-20">
-              {links.map((l, i) => (
+
+            {/* MOBILE LINKS */}
+            <nav className="mt-20 flex flex-col items-center justify-center gap-8">
+              {links.map((link, i) => (
                 <motion.a
-                  key={l.href}
-                  href={l.href}
+                  key={link.href}
+                  href={link.href}
                   onClick={() => setOpen(false)}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.05 * i }}
-                  className="text-3xl font-medium text-white hover:text-indigo-500 transition-colors"
+                  className="text-3xl font-medium text-white transition-colors duration-300 hover:text-indigo-500"
                 >
-                  {l.label}
+                  {link.label}
                 </motion.a>
               ))}
             </nav>

@@ -149,10 +149,15 @@ export default function Hero() {
         </p>
         <a
           href="#work"
-          className="group mt-10 inline-flex items-center gap-2 px-6 py-3 border border-indigo-500 text-indigo-500 hover:bg-indigo-500 hover:text-white transition-all duration-300 font-medium text-sm"
+          className="group relative mt-10 inline-flex items-center gap-3 overflow-hidden border border-indigo-500 px-5 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-white transition-all duration-300"
         >
-          View our work
-          <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+          <span className="absolute inset-0 -translate-x-full bg-indigo-500 transition-transform duration-500 ease-out group-hover:translate-x-0" />
+
+          <span className="relative z-10">
+            View Our Work
+          </span>
+
+          <ArrowRight className="relative z-10 h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
         </a>
       </div>
     </section>

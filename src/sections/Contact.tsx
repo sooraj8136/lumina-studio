@@ -1,87 +1,302 @@
 import { useState } from "react";
-import { ArrowRight, Mail } from "lucide-react";
+import { ArrowRight, Mail, PhoneCall } from "lucide-react";
 import { toast } from "sonner";
 import Reveal from "../components/Reveal";
 
-export default function Contact() {
-  const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+type FormData = {
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+};
 
-  const handleSubmit = async (e: React.FormEvent) => {
+type SubmitState = "idle" | "submitting" | "success" | "error";
+
+export default function Contact() {
+  const initialFormData: FormData = {
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  };
+
+  const [formData, setFormData] = useState<FormData>(initialFormData);
+  const [submitState, setSubmitState] = useState<SubmitState>("idle");
+  const [statusMessage, setStatusMessage] = useState("");
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const key = e.target.name as keyof FormData;
+
+    setFormData((prev) => ({
+      ...prev,
+      [key]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!form.name || !form.email || !form.message) {
+
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.phone ||
+      !formData.message
+    ) {
       toast.error("Please complete all fields.");
       return;
     }
-    setLoading(true);
+
+    setSubmitState("submitting");
+    setStatusMessage("");
+
     try {
-      const res = await fetch("/api/contact", {
+      const response = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
-      if (!res.ok) throw new Error();
-      toast.success("Message sent. We'll be in touch shortly.");
-      setForm({ name: "", email: "", message: "" });
-    } catch {
-      toast.error("Something went wrong. Try emailing us directly.");
-    } finally {
-      setLoading(false);
+
+      let payload: { success?: boolean; error?: string } = {};
+
+      try {
+        payload = (await response.json()) as {
+          success?: boolean;
+          error?: string;
+        };
+      } catch {
+        payload = {};
+      }
+
+      if (!response.ok) {
+        throw new Error(
+          payload.error ?? "Unable to send your message right now.",
+        );
+      }
+
+      setSubmitState("success");
+      setStatusMessage(
+        "Thanks! Your message has been successfully sent.",
+      );
+
+      toast.success("Message sent successfully.");
+
+      setFormData(initialFormData);
+    } catch (error) {
+      setSubmitState("error");
+
+      const message =
+        error instanceof Error
+          ? error.message
+          : "Something went wrong while sending your message.";
+
+      setStatusMessage(message);
+
+      toast.error(message);
     }
   };
 
   return (
-    <section id="contact" className="py-32 px-6 lg:px-10 border-t border-white/[0.08]">
-      <div className="max-w-5xl mx-auto">
+    <section
+      id="contact"
+      className="border-t border-white/[0.08] px-6 py-32 lg:px-10"
+    >
+      <div className="mx-auto max-w-7xl">
         <Reveal>
-          <p className="font-mono text-xs tracking-[0.3em] text-zinc-400 uppercase mb-3">
+          <p className=" text-xs uppercase tracking-[0.3em] text-zinc-400">
             07 — Contact
           </p>
-          <h2 className="text-5xl lg:text-7xl font-semibold tracking-tight leading-[1.02]">
-            Let's build something great.
-          </h2>
-          <a
-            href="mailto:hello@studio.com"
-            className="mt-8 inline-flex items-center gap-2 text-zinc-400 hover:text-indigo-500 transition-colors font-mono text-sm"
-          >
-            <Mail size={16} /> hello@studio.com
-          </a>
+
+          <div className="mt-6 grid gap-8 lg:grid-cols-[1.1fr_1.4fr] lg:items-end">
+            <div>
+              <h2 className="text-4xl font-semibold tracking-tight leading-[1.05] md:text-6xl">
+                Let’s build something memorable.
+              </h2>
+
+              <p className="mt-5 max-w-xl text-zinc-400 leading-relaxed">
+                Tell us about your project, your timeline, or the
+                problems you want solved. We’ll reply within one
+                business day.
+              </p>
+            </div>
+          </div>
         </Reveal>
 
         <Reveal delay={0.15}>
-          <form onSubmit={handleSubmit} className="mt-16 space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <input
-                type="text"
-                placeholder="Your name"
-                value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="w-full bg-transparent border-b border-white/[0.08] py-4 text-white placeholder:text-zinc-500 focus:outline-none focus:border-indigo-500 transition-colors"
-              />
-              <input
-                type="email"
-                placeholder="Email address"
-                value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
-                className="w-full bg-transparent border-b border-white/[0.08] py-4 text-white placeholder:text-zinc-500 focus:outline-none focus:border-indigo-500 transition-colors"
-              />
+          <div className="mt-14 grid gap-6 lg:grid-cols-[0.9fr_1.3fr]">
+            {/* LEFT SIDE */}
+            <div className="space-y-4">
+              <div className="rounded-none border border-white/[0.08] bg-zinc-950 p-6">
+                <p className=" text-xs uppercase tracking-[0.25em] text-zinc-500">
+                  How we work
+                </p>
+
+                <p className="mt-4 text-sm leading-relaxed text-zinc-300">
+                  Strategy, design, and development in one focused
+                  partnership. We keep the process tight, the
+                  communication clear, and the outputs polished.
+                </p>
+              </div>
+
+              <div className="space-y-3">
+                <div className="flex items-center gap-3 rounded-none border border-white/[0.08] bg-zinc-950 p-4 transition-colors duration-300 hover:border-indigo-500/60">
+                  <Mail className="h-4 w-4 text-zinc-400" />
+
+                  <div>
+                    <p className=" text-xs uppercase tracking-[0.2em] text-zinc-500">
+                      Email
+                    </p>
+
+                    <p className="mt-1 text-sm text-white">
+                      qodextech@gmail.com
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 rounded-none border border-white/[0.08] bg-zinc-950 p-4 transition-colors duration-300 hover:border-indigo-500/60">
+                  <PhoneCall className="h-4 w-4 text-zinc-400" />
+
+                  <div>
+                    <p className=" text-xs uppercase tracking-[0.2em] text-zinc-500">
+                      Phone
+                    </p>
+
+                    <p className="mt-1 text-sm text-white">
+                      +91 89212 34567
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 rounded-none border border-white/[0.08] bg-zinc-950 p-4 transition-colors duration-300 hover:border-indigo-500/60">
+                  <PhoneCall className="h-4 w-4 text-zinc-400" />
+
+                  <div>
+                    <p className=" text-xs uppercase tracking-[0.2em] text-zinc-500">
+                      Phone
+                    </p>
+
+                    <p className="mt-1 text-sm text-white">
+                      +91 89212 34567
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <textarea
-              placeholder="Tell us about your project"
-              rows={5}
-              value={form.message}
-              onChange={(e) => setForm({ ...form, message: e.target.value })}
-              className="w-full bg-transparent border-b border-white/[0.08] py-4 text-white placeholder:text-zinc-500 focus:outline-none focus:border-indigo-500 transition-colors resize-none"
-            />
-            <button
-              type="submit"
-              disabled={loading}
-              className="group inline-flex items-center gap-2 px-8 py-4 border border-indigo-500 text-indigo-500 hover:bg-indigo-500 hover:text-white transition-all duration-300 font-medium text-sm disabled:opacity-50"
+
+            {/* FORM */}
+            <form
+              onSubmit={handleSubmit}
+              className="rounded-none border border-white/[0.08] bg-zinc-950 p-6 sm:p-8"
             >
-              {loading ? "Sending…" : "Start a project"}
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-            </button>
-          </form>
+              <div className="grid gap-5 sm:grid-cols-2">
+                <label className="block text-sm text-zinc-300">
+                  <span className="mb-2 block  text-xs uppercase tracking-[0.2em] text-zinc-500">
+                    Full Name
+                  </span>
+
+                  <input
+                    type="text"
+                    name="name"
+                    required
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Your name"
+                    disabled={submitState === "submitting"}
+                    className="w-full rounded-none border border-white/[0.08] bg-black px-4 py-3 text-sm text-white outline-none transition-colors placeholder:text-zinc-600 focus:border-indigo-500/70"
+                  />
+                </label>
+
+                <label className="block text-sm text-zinc-300">
+                  <span className="mb-2 block  text-xs uppercase tracking-[0.2em] text-zinc-500">
+                    Email Address
+                  </span>
+
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="you@company.com"
+                    disabled={submitState === "submitting"}
+                    className="w-full rounded-none border border-white/[0.08] bg-black px-4 py-3 text-sm text-white outline-none transition-colors placeholder:text-zinc-600 focus:border-indigo-500/70"
+                  />
+                </label>
+
+                <label className="block text-sm text-zinc-300 sm:col-span-2">
+                  <span className="mb-2 block  text-xs uppercase tracking-[0.2em] text-zinc-500">
+                    Phone Number
+                  </span>
+
+                  <input
+                    type="tel"
+                    name="phone"
+                    required
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="+91 89212 34567"
+                    disabled={submitState === "submitting"}
+                    className="w-full rounded-none border border-white/[0.08] bg-black px-4 py-3 text-sm text-white outline-none transition-colors placeholder:text-zinc-600 focus:border-indigo-500/70"
+                  />
+                </label>
+
+                <label className="block text-sm text-zinc-300 sm:col-span-2">
+                  <span className="mb-2 block  text-xs uppercase tracking-[0.2em] text-zinc-500">
+                    Project Brief
+                  </span>
+
+                  <textarea
+                    name="message"
+                    required
+                    rows={5}
+                    value={formData.message}
+                    onChange={handleChange}
+                    placeholder="Tell us about your project, timeline, and goals."
+                    disabled={submitState === "submitting"}
+                    className="w-full resize-none rounded-none border border-white/[0.08] bg-black px-4 py-3 text-sm text-white outline-none transition-colors placeholder:text-zinc-600 focus:border-indigo-500/70"
+                  />
+                </label>
+              </div>
+
+              <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <p className="text-sm text-zinc-400">
+                    We usually reply within one business day.
+                  </p>
+
+                  {statusMessage ? (
+                    <p
+                      aria-live="polite"
+                      className={`mt-2 text-sm ${submitState === "success"
+                          ? "text-emerald-400"
+                          : "text-rose-400"
+                        }`}
+                    >
+                      {statusMessage}
+                    </p>
+                  ) : null}
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={submitState === "submitting"}
+                  className="group relative inline-flex items-center gap-3 overflow-hidden border border-indigo-500 px-5 py-3  text-[10px] uppercase tracking-[0.18em] text-white transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-70"
+                >
+                  <span className="absolute inset-0 -translate-x-full bg-indigo-500 transition-transform duration-500 ease-out group-hover:translate-x-0" />
+
+                  <span className="relative z-10">
+                    {submitState === "submitting"
+                      ? "Sending..."
+                      : "Send Message"}
+                  </span>
+
+                  <ArrowRight className="relative z-10 h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                </button>
+              </div>
+            </form>
+          </div>
         </Reveal>
       </div>
     </section>
