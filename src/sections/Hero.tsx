@@ -107,7 +107,7 @@ export default function Hero() {
       start: "top top",
       end: "bottom top",
       scrub: 1,
-      onUpdate: (self) => {
+      onUpdate: (self: ScrollTrigger) => {
         camera.position.z = 8 - self.progress * 30;
         camera.rotation.z = self.progress * 0.15;
       },
