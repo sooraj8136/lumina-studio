@@ -129,7 +129,7 @@ export default function Contact() {
           <div className="mt-14 grid gap-6 lg:grid-cols-[0.9fr_1.3fr]">
             {/* LEFT SIDE */}
             <div className="space-y-4">
-              <div className="rounded-none border border-white/[0.08] bg-zinc-950 p-6">
+              <div className="rounded-3xl border border-white/[0.08] bg-zinc-950 p-6">
                 <p className=" text-xs uppercase tracking-[0.25em] text-zinc-500">
                   How we work
                 </p>
@@ -142,7 +142,7 @@ export default function Contact() {
               </div>
 
               <div className="space-y-3">
-                <div className="flex items-center gap-3 rounded-none border border-white/[0.08] bg-zinc-950 p-4 transition-colors duration-300 hover:border-indigo-500/60">
+                <div className="flex items-center gap-3 rounded-2xl border border-white/[0.08] bg-zinc-950 p-4 transition-all duration-300 hover:border-indigo-500/60 hover:shadow-[0_0_25px_rgba(99,102,241,0.18)]">
                   <Mail className="h-4 w-4 text-zinc-400" />
 
                   <div>
@@ -156,7 +156,7 @@ export default function Contact() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3 rounded-none border border-white/[0.08] bg-zinc-950 p-4 transition-colors duration-300 hover:border-indigo-500/60">
+                <div className="flex items-center gap-3 rounded-2xl border border-white/[0.08] bg-zinc-950 p-4 transition-colors duration-300 hover:border-indigo-500/60">
                   <PhoneCall className="h-4 w-4 text-zinc-400" />
 
                   <div>
@@ -169,7 +169,7 @@ export default function Contact() {
                     </p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 rounded-none border border-white/[0.08] bg-zinc-950 p-4 transition-colors duration-300 hover:border-indigo-500/60">
+                <div className="flex items-center gap-3 rounded-2xl border border-white/[0.08] bg-zinc-950 p-4 transition-colors duration-300 hover:border-indigo-500/60">
                   <PhoneCall className="h-4 w-4 text-zinc-400" />
 
                   <div>
@@ -188,11 +188,11 @@ export default function Contact() {
             {/* FORM */}
             <form
               onSubmit={handleSubmit}
-              className="rounded-none border border-white/[0.08] bg-zinc-950 p-6 sm:p-8"
+              className="rounded-2xl border border-white/[0.08] bg-zinc-950 p-6 sm:p-8"
             >
               <div className="grid gap-5 sm:grid-cols-2">
                 <label className="block text-sm text-zinc-300">
-                  <span className="mb-2 block  text-xs uppercase tracking-[0.2em] text-zinc-500">
+                  <span className="mb-2 block  text-xs uppercase tracking-[0.2em">
                     Full Name
                   </span>
 
@@ -204,12 +204,12 @@ export default function Contact() {
                     onChange={handleChange}
                     placeholder="Your name"
                     disabled={submitState === "submitting"}
-                    className="w-full rounded-none border border-white/[0.08] bg-black px-4 py-3 text-sm text-white outline-none transition-colors placeholder:text-zinc-600 focus:border-indigo-500/70"
+                    className="w-full rounded-2xl border border-white/[0.08] bg-black px-4 py-3 text-sm text-white outline-none transition-colors placeholder:text-zinc-600 focus:border-indigo-500/70"
                   />
                 </label>
 
                 <label className="block text-sm text-zinc-300">
-                  <span className="mb-2 block  text-xs uppercase tracking-[0.2em] text-zinc-500">
+                  <span className="mb-2 block  text-xs uppercase tracking-[0.2em">
                     Email Address
                   </span>
 
@@ -221,12 +221,12 @@ export default function Contact() {
                     onChange={handleChange}
                     placeholder="you@company.com"
                     disabled={submitState === "submitting"}
-                    className="w-full rounded-none border border-white/[0.08] bg-black px-4 py-3 text-sm text-white outline-none transition-colors placeholder:text-zinc-600 focus:border-indigo-500/70"
+                    className="w-full rounded-2xl border border-white/[0.08] bg-black px-4 py-3 text-sm text-white outline-none transition-colors placeholder:text-zinc-600 focus:border-indigo-500/70"
                   />
                 </label>
 
                 <label className="block text-sm text-zinc-300 sm:col-span-2">
-                  <span className="mb-2 block  text-xs uppercase tracking-[0.2em] text-zinc-500">
+                  <span className="mb-2 block  text-xs uppercase tracking-[0.2em">
                     Phone Number
                   </span>
 
@@ -236,14 +236,14 @@ export default function Contact() {
                     required
                     value={formData.phone}
                     onChange={handleChange}
-                    placeholder="+91 89212 34567"
+                    placeholder="Phone number"
                     disabled={submitState === "submitting"}
-                    className="w-full rounded-none border border-white/[0.08] bg-black px-4 py-3 text-sm text-white outline-none transition-colors placeholder:text-zinc-600 focus:border-indigo-500/70"
+                    className="w-full rounded-2xl border border-white/[0.08] bg-black px-4 py-3 text-sm text-white outline-none transition-colors placeholder:text-zinc-600 focus:border-indigo-500/70"
                   />
                 </label>
 
                 <label className="block text-sm text-zinc-300 sm:col-span-2">
-                  <span className="mb-2 block  text-xs uppercase tracking-[0.2em] text-zinc-500">
+                  <span className="mb-2 block  text-xs uppercase tracking-[0.2em">
                     Project Brief
                   </span>
 
@@ -255,7 +255,7 @@ export default function Contact() {
                     onChange={handleChange}
                     placeholder="Tell us about your project, timeline, and goals."
                     disabled={submitState === "submitting"}
-                    className="w-full resize-none rounded-none border border-white/[0.08] bg-black px-4 py-3 text-sm text-white outline-none transition-colors placeholder:text-zinc-600 focus:border-indigo-500/70"
+                    className="w-full resize-none rounded-2xl border border-white/[0.08] bg-black px-4 py-3 text-sm text-white outline-none transition-colors placeholder:text-zinc-600 focus:border-indigo-500/70"
                   />
                 </label>
               </div>
@@ -270,8 +270,8 @@ export default function Contact() {
                     <p
                       aria-live="polite"
                       className={`mt-2 text-sm ${submitState === "success"
-                          ? "text-emerald-400"
-                          : "text-rose-400"
+                        ? "text-emerald-400"
+                        : "text-rose-400"
                         }`}
                     >
                       {statusMessage}
@@ -282,17 +282,15 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={submitState === "submitting"}
-                  className="group relative inline-flex items-center gap-3 overflow-hidden border border-indigo-500 px-5 py-3  text-[10px] uppercase tracking-[0.18em] text-white transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-70"
+                  className="group inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-8 py-4 text-sm font-medium text-white transition-all duration-300 hover:bg-indigo-500/20 hover:border-indigo-500/50 hover:shadow-[0_0_35px_rgba(99,102,241,0.45)] disabled:cursor-not-allowed disabled:opacity-70"
                 >
-                  <span className="absolute inset-0 -translate-x-full bg-indigo-500 transition-transform duration-500 ease-out group-hover:translate-x-0" />
-
-                  <span className="relative z-10">
+                  <span>
                     {submitState === "submitting"
                       ? "Sending..."
                       : "Send Message"}
                   </span>
 
-                  <ArrowRight className="relative z-10 h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                  <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                 </button>
               </div>
             </form>

@@ -13,7 +13,7 @@ export default function Footer() {
           {/* Brand Column (Takes 5 slots in medium screen) */}
           <div className="md:col-span-5 space-y-4">
             <h2 className="text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-indigo-400 to-purple-500">
-              Code Wave Tech
+              Qodex.Tech
             </h2>
             <p className="text-sm text-zinc-400 leading-relaxed max-w-sm">
               Riding the wave of innovation. We build high-performance web applications and digital experiences that scale.
@@ -50,10 +50,7 @@ export default function Footer() {
                 <span>qodextech@gmail.com</span>
               </a>
 
-              <a
-                href="https://wa.me/919876543210"
-                target="_blank"
-                rel="noopener noreferrer"
+              <p
                 className="flex items-center space-x-3 hover:text-white transition-colors group"
               >
                 <div className="p-2 bg-zinc-900 rounded-lg group-hover:bg-zinc-800 transition-colors">
@@ -62,17 +59,14 @@ export default function Footer() {
                     fill="currentColor"
                     viewBox="0 0 24 24"
                   >
-                    <path d="M20.52 3.48A11.79 11.79 0 0012.06 0C5.52 0 .2 5.32.2 11.86c0 2.1.55 4.15 1.6 5.96L0 24l6.37-1.67a11.82 11.82 0 005.69 1.45h.01c6.54 0 11.86-5.32 11.86-11.86 0-3.17-1.24-6.15-3.41-8.44zM12.07 21.7a9.8 9.8 0 01-5-1.37l-.36-.21-3.78.99 1.01-3.68-.23-.38a9.78 9.78 0 01-1.5-5.19c0-5.43 4.42-9.85 9.86-9.85 2.63 0 5.1 1.02 6.96 2.88a9.78 9.78 0 012.89 6.97c0 5.43-4.42 9.84-9.85 9.84zm5.4-7.37c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.46-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.05 1.02-1.05 2.5s1.07 2.9 1.22 3.1c.15.2 2.1 3.2 5.08 4.48.71.3 1.27.48 1.7.61.71.23 1.35.2 1.86.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.08-.12-.27-.2-.57-.35z" />
+                    <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.07 21 3 13.93 3 5c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.24.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
                   </svg>
                 </div>
 
                 <span>+91 98765 43210</span>
-              </a>
+              </p>
 
-              <a
-                href="https://wa.me/919876543210"
-                target="_blank"
-                rel="noopener noreferrer"
+              <p
                 className="flex items-center space-x-3 hover:text-white transition-colors group"
               >
                 <div className="p-2 bg-zinc-900 rounded-lg group-hover:bg-zinc-800 transition-colors">
@@ -81,13 +75,13 @@ export default function Footer() {
                     fill="currentColor"
                     viewBox="0 0 24 24"
                   >
-                    <path d="M20.52 3.48A11.79 11.79 0 0012.06 0C5.52 0 .2 5.32.2 11.86c0 2.1.55 4.15 1.6 5.96L0 24l6.37-1.67a11.82 11.82 0 005.69 1.45h.01c6.54 0 11.86-5.32 11.86-11.86 0-3.17-1.24-6.15-3.41-8.44zM12.07 21.7a9.8 9.8 0 01-5-1.37l-.36-.21-3.78.99 1.01-3.68-.23-.38a9.78 9.78 0 01-1.5-5.19c0-5.43 4.42-9.85 9.86-9.85 2.63 0 5.1 1.02 6.96 2.88a9.78 9.78 0 012.89 6.97c0 5.43-4.42 9.84-9.85 9.84zm5.4-7.37c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.46-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.05 1.02-1.05 2.5s1.07 2.9 1.22 3.1c.15.2 2.1 3.2 5.08 4.48.71.3 1.27.48 1.7.61.71.23 1.35.2 1.86.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.08-.12-.27-.2-.57-.35z" />
+                    <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.07 21 3 13.93 3 5c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.24.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
                   </svg>
                 </div>
 
                 <span>+91 98765 43210</span>
-              </a>
-
+              </p>
+              {/* 
               <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-3 hover:text-white transition-colors group">
                 <div className="p-2 bg-zinc-900 rounded-lg group-hover:bg-zinc-800 transition-colors">
                   <svg className="w-4 h-4 text-zinc-400 group-hover:text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -97,7 +91,7 @@ export default function Footer() {
                   </svg>
                 </div>
                 <span>@codewavetech</span>
-              </a>
+              </a> */}
             </div>
           </div>
 
@@ -106,9 +100,68 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-500 space-y-4 sm:space-y-0">
           <p>&copy; {new Date().getFullYear()} Code Wave Tech. All rights reserved.</p>
-          <div className="flex space-x-6">
-            <a href="#privacy" className="hover:text-zinc-300 transition-colors">Privacy Policy</a>
-            <a href="#terms" className="hover:text-zinc-300 transition-colors">Terms of Service</a>
+
+          <div className="flex items-center space-x-6">
+            {/* <a href="#privacy" className="hover:text-zinc-300 transition-colors">
+              Privacy Policy
+            </a>
+
+            <a href="#terms" className="hover:text-zinc-300 transition-colors">
+              Terms of Service
+            </a> */}
+
+            {/* Social Icons */}
+            <div className="flex items-center gap-4 text-zinc-400">
+
+              {/* Instagram */}
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 flex items-center justify-center rounded-full border border-zinc-700 hover:border-indigo-500 hover:text-white hover:shadow-[0_0_18px_rgba(99,102,241,0.7)] transition-all duration-300"
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M7.75 2C4.57 2 2 4.57 2 7.75v8.5C2 19.43 4.57 22 7.75 22h8.5C19.43 22 22 19.43 22 16.25v-8.5C22 4.57 19.43 2 16.25 2h-8.5zm0 2h8.5C18.33 4 20 5.67 20 7.75v8.5C20 18.33 18.33 20 16.25 20h-8.5C5.67 20 4 18.33 4 16.25v-8.5C4 5.67 5.67 4 7.75 4zm8.75 1a1.25 1.25 0 100 2.5 1.25 1.25 0 000-2.5zM12 7a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6z" />
+                </svg>
+              </a>
+
+              {/* LinkedIn */}
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 flex items-center justify-center rounded-full border border-zinc-700 hover:border-indigo-500 hover:text-white hover:shadow-[0_0_18px_rgba(99,102,241,0.7)] transition-all duration-300"
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="-3 0 24 24">
+                  <path d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6S0 4.88 0 3.5 1.12 1 2.48 1s2.5 1.12 2.5 2.5zM.5 8h4V24h-4V8zm7.5 0h3.8v2.2h.1c.53-1 1.82-2.2 3.75-2.2 4 0 4.75 2.63 4.75 6.05V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.85-2.75 3.78V24h-4V8z" />
+                </svg>
+              </a>
+
+              {/* Facebook */}
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 flex items-center justify-center rounded-full border border-zinc-700 hover:border-indigo-500 hover:text-white hover:shadow-[0_0_18px_rgba(99,102,241,0.7)] transition-all duration-300"
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="-1 0 24 24">
+                  <path d="M22 12a10 10 0 10-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.5-3.88 3.78-3.88 1.1 0 2.24.2 2.24.2v2.46H15.2c-1.24 0-1.62.77-1.62 1.56V12h2.77l-.44 2.89h-2.33v6.99A10 10 0 0022 12z" />
+                </svg>
+              </a>
+
+              {/* X */}
+              <a
+                href="https://x.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 flex items-center justify-center rounded-full border border-zinc-700 hover:border-indigo-500 hover:text-white hover:shadow-[0_0_18px_rgba(99,102,241,0.7)] transition-all duration-300"
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M18.9 2H22l-6.9 7.88L23 22h-6.8l-5.3-6.4L4.8 22H1.7l7.4-8.45L1 2h6.9l4.8 5.8L18.9 2zm-1.2 18h1.9L6.3 3.9H4.3L17.7 20z" />
+                </svg>
+              </a>
+
+            </div>
           </div>
         </div>
       </div>

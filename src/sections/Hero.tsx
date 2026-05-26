@@ -15,7 +15,7 @@ export default function Hero() {
     if (!mount) return;
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.Fog(0x000000, 5, 25);
+    scene.fog = new THREE.Fog(0x000000, 5, 30);
 
     const camera = new THREE.PerspectiveCamera(
       60,
@@ -23,142 +23,175 @@ export default function Hero() {
       0.1,
       100
     );
+
     camera.position.z = 8;
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      alpha: true,
+    });
+
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(mount.clientWidth, mount.clientHeight);
     renderer.setClearColor(0x000000, 0);
+
     mount.appendChild(renderer.domElement);
 
-    // Lights
+    // Lighting
     scene.add(new THREE.AmbientLight(0xffffff, 0.35));
-    const indigo1 = new THREE.PointLight(0x6366f1, 2, 30);
-    indigo1.position.set(4, 2, 2);
-    scene.add(indigo1);
-    const indigo2 = new THREE.PointLight(0x6366f1, 1.2, 30);
-    indigo2.position.set(-5, -3, -4);
-    scene.add(indigo2);
 
-    // Floating frames tunnel
-    const frames: THREE.Mesh[] = [];
-    const frameGeo = new THREE.PlaneGeometry(2.4, 1.35);
-    for (let i = 0; i < 14; i++) {
-      const mat = new THREE.MeshStandardMaterial({
-        color: new THREE.Color(0x0a0a0a),
-        transparent: true,
-        opacity: 0.55,
-        metalness: 0.4,
-        roughness: 0.6,
-        side: THREE.DoubleSide,
-      });
-      const mesh = new THREE.Mesh(frameGeo, mat);
-      mesh.position.x = (Math.random() - 0.5) * 6;
-      mesh.position.y = (Math.random() - 0.5) * 4;
-      mesh.position.z = -i * 3;
-      mesh.rotation.x = (Math.random() - 0.5) * 0.4;
-      mesh.rotation.y = (Math.random() - 0.5) * 0.4;
-      scene.add(mesh);
-      frames.push(mesh);
+    const indigoLight = new THREE.PointLight(0x6366f1, 2.5, 40);
+    indigoLight.position.set(4, 2, 4);
+    scene.add(indigoLight);
 
-      // border outline
-      const edges = new THREE.EdgesGeometry(frameGeo);
-      const line = new THREE.LineSegments(
-        edges,
-        new THREE.LineBasicMaterial({ color: 0x6366f1, transparent: true, opacity: 0.4 })
-      );
-      mesh.add(line);
-    }
+    const purpleLight = new THREE.PointLight(0xa855f7, 2, 40);
+    purpleLight.position.set(-4, -2, 2);
+    scene.add(purpleLight);
 
     // Particles
-    const particleCount = 600;
+    const particleCount = 900;
+
     const positions = new Float32Array(particleCount * 3);
+
     for (let i = 0; i < particleCount; i++) {
       positions[i * 3] = (Math.random() - 0.5) * 30;
       positions[i * 3 + 1] = (Math.random() - 0.5) * 20;
-      positions[i * 3 + 2] = -Math.random() * 40;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 40;
     }
-    const pGeo = new THREE.BufferGeometry();
-    pGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-    const pMat = new THREE.PointsMaterial({
+
+    const particleGeo = new THREE.BufferGeometry();
+
+    particleGeo.setAttribute(
+      "position",
+      new THREE.BufferAttribute(positions, 3)
+    );
+
+    const particleMat = new THREE.PointsMaterial({
       color: 0xffffff,
-      size: 0.025,
+      size: 0.03,
       transparent: true,
-      opacity: 0.5,
+      opacity: 0.7,
     });
-    const particles = new THREE.Points(pGeo, pMat);
+
+    const particles = new THREE.Points(particleGeo, particleMat);
+
     scene.add(particles);
 
+    // Animation
     let raf = 0;
+
     const animate = () => {
       raf = requestAnimationFrame(animate);
-      frames.forEach((f, i) => {
-        f.rotation.y += 0.0008 + i * 0.00005;
-        f.rotation.x += 0.0004;
-      });
-      particles.rotation.y += 0.0003;
+
+      particles.rotation.y += 0.0005;
+      particles.rotation.x += 0.00015;
+
       renderer.render(scene, camera);
     };
+
     animate();
 
-    // GSAP scroll: move camera through tunnel
+    // Scroll Animation
     const st = ScrollTrigger.create({
       trigger: sectionRef.current,
       start: "top top",
       end: "bottom top",
       scrub: 1,
-      onUpdate: (self: ScrollTrigger) => {
-        camera.position.z = 8 - self.progress * 30;
-        camera.rotation.z = self.progress * 0.15;
+      onUpdate: (self) => {
+        camera.position.z = 8 - self.progress * 4;
+        particles.rotation.z = self.progress * 0.2;
       },
     });
 
+    // Resize
     const onResize = () => {
       if (!mount) return;
+
       camera.aspect = mount.clientWidth / mount.clientHeight;
       camera.updateProjectionMatrix();
+
       renderer.setSize(mount.clientWidth, mount.clientHeight);
     };
+
     window.addEventListener("resize", onResize);
 
     return () => {
       cancelAnimationFrame(raf);
+
       st.kill();
+
       window.removeEventListener("resize", onResize);
+
+      particleGeo.dispose();
+      particleMat.dispose();
       renderer.dispose();
-      frameGeo.dispose();
-      pGeo.dispose();
-      pMat.dispose();
-      if (mount.contains(renderer.domElement)) mount.removeChild(renderer.domElement);
+
+      if (mount.contains(renderer.domElement)) {
+        mount.removeChild(renderer.domElement);
+      }
     };
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative h-screen w-full overflow-hidden">
+    <section
+      ref={sectionRef}
+      className="relative min-h-[100svh] overflow-hidden bg-black border-b border-white/[0.08]"
+    >
+      {/* Three.js Canvas */}
       <div ref={mountRef} className="absolute inset-0" />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black pointer-events-none" />
-      <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
-        <p className="font-mono text-xs tracking-[0.3em] text-zinc-400 uppercase mb-6">
-          Freelance Web Design
-        </p>
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-semibold tracking-tight max-w-5xl leading-[1.05]">
-          We design experiences <br className="hidden sm:block" /> people remember
-        </h1>
-        <p className="mt-6 text-zinc-400 max-w-xl text-base sm:text-lg">
-          Premium digital interfaces for modern brands.
-        </p>
-        <a
-          href="#work"
-          className="group relative mt-10 inline-flex items-center gap-3 overflow-hidden border border-indigo-500 px-5 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-white transition-all duration-300"
-        >
-          <span className="absolute inset-0 -translate-x-full bg-indigo-500 transition-transform duration-500 ease-out group-hover:translate-x-0" />
 
-          <span className="relative z-10">
-            View Our Work
-          </span>
+      {/* Glow Effects */}
+      <div className="absolute top-[-120px] left-[-100px] sm:left-1/4 w-[280px] sm:w-[500px] h-[280px] sm:h-[500px] bg-indigo-600/20 blur-[120px] sm:blur-[160px] rounded-full" />
 
-          <ArrowRight className="relative z-10 h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
-        </a>
+      <div className="absolute bottom-[-120px] right-[-100px] sm:right-1/4 w-[280px] sm:w-[500px] h-[280px] sm:h-[500px] bg-purple-600/20 blur-[120px] sm:blur-[160px] rounded-full" />
+
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black pointer-events-none" />
+
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 min-h-[100svh] flex items-center justify-center">
+
+        <div className="text-center w-full max-w-4xl">
+
+          {/* Small Label */}
+          <p className="font-mono text-[10px] sm:text-xs tracking-[0.25em] sm:tracking-[0.3em] uppercase text-zinc-400 mb-5 sm:mb-6">
+            Freelance Web Design
+          </p>
+
+          {/* Heading */}
+          <h1 className="text-[2.5rem] leading-[1.05] sm:text-6xl lg:text-7xl font-bold tracking-tight">
+
+            <span className="block text-white">
+              We Build Digital
+            </span>
+
+            <span className="block mt-2 bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
+              Experiences People Remember
+            </span>
+
+          </h1>
+
+          {/* Description */}
+          <p className="mt-6 sm:mt-8 max-w-xl sm:max-w-2xl mx-auto text-sm sm:text-lg text-zinc-400 leading-relaxed px-2 sm:px-0">
+            Premium digital interfaces crafted for modern brands —
+            blending performance, aesthetics, and immersive user experiences.
+          </p>
+
+          {/* CTA */}
+          {/* <div className="mt-8 sm:mt-10">
+
+            <a
+              href="#work"
+              className="group inline-flex items-center gap-2 sm:gap-3 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-6 sm:px-8 py-3.5 sm:py-4 text-xs sm:text-sm font-medium text-white transition-all duration-300 hover:bg-indigo-500/20 hover:border-indigo-500/50 hover:shadow-[0_0_35px_rgba(99,102,241,0.45)]"
+            >
+              View Our Work
+
+              <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 transition-transform duration-300 group-hover:translate-x-1" />
+            </a>
+
+          </div> */}
+
+        </div>
       </div>
     </section>
   );

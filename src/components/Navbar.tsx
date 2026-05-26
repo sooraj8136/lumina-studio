@@ -3,17 +3,18 @@ import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 
 const links = [
-  { label: "Work", href: "#work" },
-  { label: "Services", href: "#services" },
-  { label: "About", href: "#about" },
-  { label: "Technologies", href: "#technologies" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/" },
+  { label: "Services", href: "/services" },
+  { label: "About Us", href: "/about" },
+  { label: "Contact Us", href: "/contact" },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+
+  // Current Path
+  const pathname = window.location.pathname;
 
   useEffect(() => {
     const onScroll = () => {
@@ -32,37 +33,75 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? "border-b border-white/[0.08] bg-black/60 backdrop-blur-md"
-            : "bg-transparent"
-        }`}
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${scrolled
+            ? `
+        border-b border-white/[0.08]
+        bg-black/30
+        backdrop-blur-2xl
+        shadow-[0_8px_32px_rgba(0,0,0,0.35)]
+      `
+            : `
+        bg-white/[0.02]
+        backdrop-blur-xl
+      `
+          }`}
       >
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-10">
+
           {/* LOGO */}
           <a
-            href="#"
+            href="/"
             className="text-lg font-bold tracking-tight text-white"
           >
-            QODEX.DEV
+            Qodex.Tech
           </a>
 
           {/* DESKTOP NAV */}
-          <nav className="hidden items-center gap-8 lg:flex">
-            {links.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-sm text-zinc-400 transition-colors duration-300 hover:text-white"
-              >
-                {link.label}
-              </a>
-            ))}
+          <nav className="hidden items-center gap-3 lg:flex">
+            {links.map((link) => {
+              const active = pathname === link.href;
+
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className={`relative rounded-full px-4 py-2 text-sm transition-all duration-300 ${active
+                      ? `
+                  text-white
+                  border border-white/[0.08]
+                  bg-white/[0.06]
+                  backdrop-blur-xl
+                  shadow-[0_0_25px_rgba(99,102,241,0.35)]
+                `
+                      : `
+                  text-zinc-400
+                  hover:text-white
+                  hover:bg-white/[0.04]
+                `
+                    }`}
+                >
+                  {active && (
+                    <span className="absolute inset-0 rounded-full bg-gradient-to-r from-white/[0.08] to-indigo-500/10 backdrop-blur-xl -z-10" />
+                  )}
+
+                  {link.label}
+                </a>
+              );
+            })}
           </nav>
 
           {/* MOBILE MENU BUTTON */}
           <button
-            className="text-white lg:hidden"
+            className="
+        text-white lg:hidden
+        rounded-full
+        border border-white/[0.08]
+        bg-white/[0.05]
+        backdrop-blur-xl
+        p-2
+        transition-all duration-300
+        hover:bg-white/[0.08]
+      "
             onClick={() => setOpen(true)}
             aria-label="Open menu"
           >
@@ -82,6 +121,7 @@ export default function Navbar() {
           >
             {/* TOP BAR */}
             <div className="flex h-16 items-center justify-between border-b border-white/[0.08] px-6">
+
               <span className="text-lg font-bold tracking-tight text-white">
                 QODEX.DEV
               </span>
@@ -97,19 +137,30 @@ export default function Navbar() {
 
             {/* MOBILE LINKS */}
             <nav className="mt-20 flex flex-col items-center justify-center gap-8">
-              {links.map((link, i) => (
-                <motion.a
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.05 * i }}
-                  className="text-3xl font-medium text-white transition-colors duration-300 hover:text-indigo-500"
-                >
-                  {link.label}
-                </motion.a>
-              ))}
+              {links.map((link, i) => {
+                const active = pathname === link.href;
+
+                return (
+                  <motion.a
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.05 * i }}
+                    className={`relative rounded-full px-6 py-3 text-3xl font-medium transition-all duration-300 ${active
+                        ? "text-white border border-indigo-500/30 bg-indigo-500/10 shadow-[0_0_40px_rgba(99,102,241,0.55)]"
+                        : "text-zinc-400 hover:text-indigo-400"
+                      }`}
+                  >
+                    {active && (
+                      <span className="absolute inset-0 rounded-full bg-indigo-500/20 blur-2xl -z-10" />
+                    )}
+
+                    {link.label}
+                  </motion.a>
+                );
+              })}
             </nav>
           </motion.div>
         )}
