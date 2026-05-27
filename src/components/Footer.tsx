@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -13,21 +14,21 @@ export default function Footer() {
           {/* Brand Column (Takes 5 slots in medium screen) */}
           <div className="md:col-span-5 space-y-4">
             <a
-            href="/"
-            className="group flex items-center text-lg font-bold tracking-wide text-white"
-          >
-            {/* Q LOGO */}
-            <img
-              src="/OurLogo.png"
-              alt="Q"
-              className="h-9 w-9 object-contain"
-            />
+              href="/"
+              className="group flex items-center text-lg font-bold tracking-wide text-white"
+            >
+              {/* Q LOGO */}
+              <img
+                src="/OurLogo.png"
+                alt="Q"
+                className="h-9 w-9 object-contain"
+              />
 
-            {/* TEXT */}
-            <span className="-ml-0">
-              odex<span className="text-indigo-400">.Tech</span>
-            </span>
-          </a>
+              {/* TEXT */}
+              <span className="-ml-0">
+                odex<span className="text-indigo-400">.Tech</span>
+              </span>
+            </a>
             <p className="text-sm text-zinc-400 leading-relaxed max-w-sm">
               Riding the wave of innovation. We build high-performance web applications and digital experiences that scale.
             </p>
@@ -35,16 +36,24 @@ export default function Footer() {
 
           {/* Links Column (Takes 3 slots) */}
           <div className="md:col-span-3 space-y-4">
-            <h3 className="text-sm font-semibold text-zinc-200 uppercase tracking-wider">Navigation</h3>
+            <h3 className="text-sm font-semibold text-zinc-200 uppercase tracking-wider">
+              Navigation
+            </h3>
+
             <ul className="space-y-2.5 text-sm">
-              {['Home', 'Services', 'About', 'Contact'].map((item) => (
-                <li key={item}>
-                  <a
-                    href={`#${item.toLowerCase()}`}
-                    className="hover:text-indigo-400 transition-colors flex items-center"
+              {[
+                { name: "Home", path: "/" },
+                { name: "Services", path: "/services" },
+                { name: "About", path: "/about" },
+                { name: "Contact", path: "/contact" },
+              ].map((item) => (
+                <li key={item.name}>
+                  <Link
+                    to={item.path}
+                    className="flex items-center transition-all duration-300 hover:translate-x-1 hover:text-indigo-400"
                   >
-                    {item}
-                  </a>
+                    {item.name}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -94,17 +103,6 @@ export default function Footer() {
 
                 <span>+91 98765 43210</span>
               </p>
-              {/* 
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-3 hover:text-white transition-colors group">
-                <div className="p-2 bg-zinc-900 rounded-lg group-hover:bg-zinc-800 transition-colors">
-                  <svg className="w-4 h-4 text-zinc-400 group-hover:text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" strokeWidth="2"></rect>
-                    <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" strokeWidth="2"></path>
-                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" strokeWidth="2"></line>
-                  </svg>
-                </div>
-                <span>@codewavetech</span>
-              </a> */}
             </div>
           </div>
 
@@ -112,18 +110,9 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-500 space-y-4 sm:space-y-0">
-          <p>&copy; {new Date().getFullYear()} Code Wave Tech. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Qodex.Tech Tech. All rights reserved.</p>
 
           <div className="flex items-center space-x-6">
-            {/* <a href="#privacy" className="hover:text-zinc-300 transition-colors">
-              Privacy Policy
-            </a>
-
-            <a href="#terms" className="hover:text-zinc-300 transition-colors">
-              Terms of Service
-            </a> */}
-
-            {/* Social Icons */}
             <div className="flex items-center gap-4 text-zinc-400">
 
               {/* Instagram */}
@@ -162,16 +151,18 @@ export default function Footer() {
                 </svg>
               </a>
 
-              {/* X */}
+              {/* RAVE */}
               <a
-                href="https://x.com"
+                href="https://rave.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 flex items-center justify-center rounded-full border border-zinc-700 hover:border-indigo-500 hover:text-white hover:shadow-[0_0_18px_rgba(99,102,241,0.7)] transition-all duration-300"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-zinc-700 text-zinc-400 transition-all duration-300 hover:border-indigo-500 hover:text-white hover:shadow-[0_0_25px_rgba(99,102,241,0.6)]"
               >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M18.9 2H22l-6.9 7.88L23 22h-6.8l-5.3-6.4L4.8 22H1.7l7.4-8.45L1 2h6.9l4.8 5.8L18.9 2zm-1.2 18h1.9L6.3 3.9H4.3L17.7 20z" />
-                </svg>
+                <img
+                  src="/rave-logo.png"
+                  alt="Rave"
+                  className="h-6 w-6 object-contain"
+                />
               </a>
 
             </div>

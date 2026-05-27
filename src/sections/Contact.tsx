@@ -113,36 +113,19 @@ export default function Contact() {
       className="relative overflow-hidden border-t border-white/[0.08] bg-black px-6 py-32"
     >
       {/* Glow Effects */}
-      <div className="absolute top-0 left-1/4 h-[500px] w-[500px] rounded-full bg-indigo-600/20 blur-[160px]" />
+      <div className="absolute top-0 left-1/4 h-[550px] w-[550px] rounded-full bg-indigo-500/35 blur-[170px]" />
+
+      <div className="absolute bottom-0 right-1/4 h-[550px] w-[550px] rounded-full bg-purple-500/35 blur-[170px]" />
       <div className="absolute bottom-0 right-1/4 h-[500px] w-[500px] rounded-full bg-purple-600/20 blur-[160px]" />
 
       <div className="relative z-10 mx-auto max-w-7xl">
-        <Reveal>
-          <div className="max-w-3xl">
-            <p className="mb-4 text-xs uppercase tracking-[0.3em] text-zinc-400">
-              07 — Contact
-            </p>
-
-            <h2 className="text-5xl font-bold leading-tight tracking-tight md:text-6xl">
-              Let’s Build Something{" "}
-              <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
-                Extraordinary
-              </span>
-            </h2>
-
-            <p className="mt-8 text-lg leading-relaxed text-zinc-400">
-              Have a project idea, business inquiry, or just want to
-              say hello? We'd love to hear from you.
-            </p>
-          </div>
-        </Reveal>
 
         <Reveal delay={0.15}>
-          <div className="mt-20 grid gap-10 lg:grid-cols-[0.95fr_1.2fr]">
+          <div className="mt-6 grid gap-10 lg:grid-cols-[0.95fr_1.2fr]">
             {/* LEFT SIDE */}
             <div>
-              <p className="mb-4 text-xs uppercase tracking-[0.3em] text-zinc-500">
-                Get In Touch
+              <p className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-zinc-400">
+                04 — Get In Touch
               </p>
 
               <h3 className="text-4xl font-semibold tracking-tight md:text-5xl">
@@ -185,9 +168,15 @@ export default function Contact() {
                       Phone
                     </p>
 
-                    <p className="mt-2 text-white">
-                      +91 89212 34567
-                    </p>
+                    <div className="mt-2 space-y-1">
+                      <p className="text-white">
+                        +91 89212 34567
+                      </p>
+
+                      <p className="text-white">
+                        +91 98765 43210
+                      </p>
+                    </div>
                   </div>
                 </div>
 
@@ -244,14 +233,16 @@ export default function Contact() {
                   </a>
 
                   <a
-                    href="https://x.com"
+                    href="https://rave.com"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex h-12 w-12 items-center justify-center rounded-full border border-zinc-700 text-zinc-400 transition-all duration-300 hover:border-indigo-500 hover:text-white hover:shadow-[0_0_25px_rgba(99,102,241,0.6)]"
                   >
-                    <span className="text-[18px] font-semibold leading-none">
-                      𝕏
-                    </span>
+                    <img
+                      src="/rave-logo.png"
+                      alt="Rave"
+                      className="h-6 w-6 object-contain"
+                    />
                   </a>
                 </div>
               </div>
@@ -350,8 +341,8 @@ export default function Contact() {
                     <p
                       aria-live="polite"
                       className={`mt-2 text-sm ${submitState === "success"
-                          ? "text-emerald-400"
-                          : "text-rose-400"
+                        ? "text-emerald-400"
+                        : "text-rose-400"
                         }`}
                     >
                       {statusMessage}

@@ -1,47 +1,75 @@
+import { ArrowRight } from "lucide-react";
 import Reveal from "../components/Reveal";
-
-const stats = [
-  { n: "12+", l: "Projects" },
-  { n: "8", l: "Clients" },
-  { n: "3", l: "Years Experience" },
-];
 
 export default function About() {
   return (
-    <section id="about" className="py-32 px-6 lg:px-10 border-t border-white/[0.08]">
-      <div className="max-w-7xl mx-auto">
+    <section
+      id="about"
+      className="relative overflow-hidden border-t border-white/[0.08] py-32 px-6 lg:px-10"
+    >
+      {/* Glow */}
+      <div className="absolute top-0 left-1/3 h-[400px] w-[400px] rounded-full bg-indigo-600/20 blur-[140px]" />
+      <div className="absolute bottom-0 right-1/3 h-[400px] w-[400px] rounded-full bg-purple-600/20 blur-[140px]" />
+
+      <div className="relative z-10 mx-auto max-w-7xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          
+          {/* Left */}
           <Reveal>
-            <p className="font-mono text-xs tracking-[0.3em] text-zinc-400 uppercase mb-3">
-              03 — Who We Are
+            <p className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-zinc-400">
+              01 — Who We Are
             </p>
+
             <h2 className="text-4xl lg:text-6xl font-semibold tracking-tight leading-[1.05]">
-              We craft digital experiences that feel timeless.
+              We create premium digital experiences for modern brands.
             </h2>
           </Reveal>
+
+          {/* Right */}
           <Reveal delay={0.1}>
-            <p className="text-lg text-zinc-400 leading-relaxed">
-              Qodex Tech is a modern web development studio focused on building
-              fast, scalable, and visually engaging digital experiences. We work
-              closely with startups, businesses, and creators to craft premium
-              websites and web applications that combine clean design, seamless
-              user experience, and modern development technologies.
-            </p>
+            <div>
+              <p className="text-lg leading-relaxed text-zinc-400">
+                Qodex Tech is a modern web development studio focused on
+                building fast, scalable, and visually engaging websites and web
+                applications. We combine clean UI design with modern
+                technologies to help businesses create a strong digital
+                presence.
+              </p>
+
+              {/* Highlights */}
+              <div className="mt-10 space-y-4">
+                {[
+                  "Modern & responsive web experiences",
+                  "High-performance development architecture",
+                  "Clean UI/UX focused on conversions",
+                ].map((item, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center gap-3 rounded-2xl border border-white/[0.08] bg-zinc-950/50 px-5 py-4"
+                  >
+                    <div className="h-2 w-2 rounded-full bg-indigo-400" />
+
+                    <p className="text-sm text-zinc-300">
+                      {item}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              {/* CTA */}
+              <div className="mt-10">
+                <a
+                  href="/about"
+                  className="group inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-8 py-4 text-sm font-medium text-white transition-all duration-300 hover:border-indigo-500/50 hover:bg-indigo-500/20 hover:shadow-[0_0_35px_rgba(99,102,241,0.45)]"
+                >
+                  Learn More
+
+                  <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+                </a>
+              </div>
+            </div>
           </Reveal>
         </div>
-
-        {/* <div className="mt-20 grid grid-cols-3 gap-6 border-t border-white/[0.08] pt-10">
-          {stats.map((s, i) => (
-            <Reveal key={s.l} delay={i * 0.08}>
-              <div>
-                <p className="text-4xl lg:text-5xl font-semibold tracking-tight">{s.n}</p>
-                <p className="mt-2 font-mono text-xs text-zinc-400 uppercase tracking-widest">
-                  {s.l}
-                </p>
-              </div>
-            </Reveal>
-          ))}
-        </div> */}
       </div>
     </section>
   );

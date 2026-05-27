@@ -63,23 +63,23 @@ export default function Services() {
                   transition={{ type: "spring", stiffness: 360, damping: 24 }}
                   onClick={() => setActiveTab(service)}
                   className={`relative w-full rounded-2xl border p-6 text-left transition-all duration-300 ${isSelected
-                      ? service.id === "custom-web"
-                        ? "bg-zinc-950 border-indigo-500/40 shadow-[0_0_40px_-10px_rgba(99,102,241,0.35)]"
-                        : service.id === "ecommerce"
-                          ? "bg-zinc-950 border-purple-500/40 shadow-[0_0_40px_-10px_rgba(168,85,247,0.35)]"
-                          : "bg-zinc-950 border-emerald-500/40 shadow-[0_0_40px_-10px_rgba(16,185,129,0.35)]"
-                      : service.id === "custom-web"
-                        ? "bg-zinc-950/50 border-white/[0.08] hover:border-indigo-500/40 hover:shadow-[0_0_30px_-12px_rgba(99,102,241,0.25)]"
-                        : service.id === "ecommerce"
-                          ? "bg-zinc-950/50 border-white/[0.08] hover:border-purple-500/40 hover:shadow-[0_0_30px_-12px_rgba(168,85,247,0.25)]"
-                          : "bg-zinc-950/50 border-white/[0.08] hover:border-emerald-500/40 hover:shadow-[0_0_30px_-12px_rgba(16,185,129,0.25)]"
+                    ? service.id === "custom-web"
+                      ? "bg-zinc-950 border-indigo-500/40 shadow-[0_0_40px_-10px_rgba(99,102,241,0.35)]"
+                      : service.id === "ecommerce"
+                        ? "bg-zinc-950 border-purple-500/40 shadow-[0_0_40px_-10px_rgba(168,85,247,0.35)]"
+                        : "bg-zinc-950 border-emerald-500/40 shadow-[0_0_40px_-10px_rgba(16,185,129,0.35)]"
+                    : service.id === "custom-web"
+                      ? "bg-zinc-950/50 border-white/[0.08] hover:border-indigo-500/40 hover:shadow-[0_0_30px_-12px_rgba(99,102,241,0.25)]"
+                      : service.id === "ecommerce"
+                        ? "bg-zinc-950/50 border-white/[0.08] hover:border-purple-500/40 hover:shadow-[0_0_30px_-12px_rgba(168,85,247,0.25)]"
+                        : "bg-zinc-950/50 border-white/[0.08] hover:border-emerald-500/40 hover:shadow-[0_0_30px_-12px_rgba(16,185,129,0.25)]"
                     }`}
                 >
                   <div className="flex items-start gap-4">
                     <div
                       className={`rounded-xl border p-3 transition-colors ${isSelected
-                          ? "bg-zinc-900 border-indigo-500/40"
-                          : "bg-zinc-900/80 border-white/[0.08]"
+                        ? "bg-zinc-900 border-indigo-500/40"
+                        : "bg-zinc-900/80 border-white/[0.08]"
                         }`}
                     >
                       {service.icon}
@@ -147,10 +147,11 @@ export default function Services() {
                 </p>
                 <a
                   href="#contact"
-                  className="group inline-flex items-center gap-2 rounded-full border border-white/[0.08] px-4 py-2 text-sm font-medium text-white transition-colors hover:border-indigo-500/40 hover:text-indigo-500"
+                  className="group inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-8 py-4 text-sm font-medium text-white transition-all duration-300 hover:border-indigo-500/50 hover:bg-indigo-500/20 hover:shadow-[0_0_35px_rgba(99,102,241,0.45)]"
                 >
-                  Discuss project
-                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  Discuss Project
+
+                  <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                 </a>
               </div>
             </div>
