@@ -18,16 +18,17 @@ export default function Footer() {
               className="group flex items-center text-lg font-bold tracking-wide text-white"
             >
               {/* Q LOGO */}
-              <img
-                src="/OurLogo.png"
-                alt="Q"
-                className="h-9 w-9 object-contain"
-              />
+              <a
+                href="/"
+                className="flex items-center"
+              >
+                <img
+                  src="/OurLogo1.png"
+                  alt="Tech stack Logo"
+                  className="h-20 w-auto object-contain"
+                />
+              </a>
 
-              {/* TEXT */}
-              <span className="-ml-0">
-                odex<span className="text-indigo-400">.Tech</span>
-              </span>
             </a>
             <p className="text-sm text-zinc-400 leading-relaxed max-w-sm">
               Riding the wave of innovation. We build high-performance web applications and digital experiences that scale.
@@ -69,7 +70,7 @@ export default function Footer() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 002-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
-                <span>qodextech@gmail.com</span>
+                <span>hellotexstack@gmail.com</span>
               </a>
 
               <p
@@ -110,7 +111,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-500 space-y-4 sm:space-y-0">
-          <p>&copy; {new Date().getFullYear()} Qodex.Tech Tech. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Tech stack All rights reserved.</p>
 
           <div className="flex items-center space-x-6">
             <div className="flex items-center gap-4 text-zinc-400">

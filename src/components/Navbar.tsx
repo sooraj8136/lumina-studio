@@ -51,19 +51,13 @@ export default function Navbar() {
           {/* LOGO */}
           <a
             href="/"
-            className="group flex items-center text-lg font-bold tracking-wide text-white"
+            className="flex items-center"
           >
-            {/* Q LOGO */}
             <img
-              src="/OurLogo.png"
-              alt="Q"
-              className="h-9 w-9 object-contain"
+              src="/OurLogo1.png"
+              alt="Tech stack Logo"
+              className="h-20 w-auto object-contain"
             />
-
-            {/* TEXT */}
-            <span className="-ml-0">
-              odex<span className="text-indigo-400">.Tech</span>
-            </span>
           </a>
 
           {/* DESKTOP NAV */}
@@ -133,7 +127,7 @@ export default function Navbar() {
             <div className="flex h-16 items-center justify-between border-b border-white/[0.08] px-6">
 
               <span className="text-lg font-bold tracking-tight text-white">
-                QODEX.DEV
+                Tech stack
               </span>
 
               <button

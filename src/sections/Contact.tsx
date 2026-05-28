@@ -60,39 +60,47 @@ export default function Contact() {
     setStatusMessage("");
 
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      // SAVE TO GOOGLE SHEET
+      await fetch(
+        "https://script.google.com/macros/s/AKfycbyoVTvQz9ycrrLexy6KkPuDwR47uc8LgCL2M2r3qqMB-u2JU6KsMBlvccuG3tIpOly5/exec",
+        {
+          method: "POST",
+          body: JSON.stringify(formData),
+        }
+      );
 
-      let payload: { success?: boolean; error?: string } = {};
+      // WHATSAPP MESSAGE
+      const whatsappMessage = `
+New Contact Form 🚀
 
-      try {
-        payload = (await response.json()) as {
-          success?: boolean;
-          error?: string;
-        };
-      } catch {
-        payload = {};
-      }
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
 
-      if (!response.ok) {
-        throw new Error(
-          payload.error ?? "Unable to send your message right now.",
-        );
-      }
+Message:
+${formData.message}
+`;
+
+      // YOUR WHATSAPP NUMBER
+      const phoneNumber = "918136951157";
+
+      window.open(
+        `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+          whatsappMessage
+        )}`,
+        "_blank"
+      );
 
       setSubmitState("success");
+
       setStatusMessage(
-        "Thanks! Your message has been successfully sent.",
+        "Thanks! Your message has been successfully sent."
       );
 
       toast.success("Message sent successfully.");
 
       setFormData(initialFormData);
+
     } catch (error) {
       setSubmitState("error");
 
@@ -106,6 +114,7 @@ export default function Contact() {
       toast.error(message);
     }
   };
+
 
   return (
     <section
@@ -152,7 +161,7 @@ export default function Contact() {
                     </p>
 
                     <p className="mt-2 text-white">
-                      qodextech@gmail.com
+                      hellotexstack@gmail.com
                     </p>
                   </div>
                 </div>

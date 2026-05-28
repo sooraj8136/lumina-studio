@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import {
@@ -12,6 +12,81 @@ import {
 } from "lucide-react";
 
 function ContactPage() {
+
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+    });
+
+    const [loading, setLoading] = useState(false);
+
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        });
+    };
+
+    const handleSubmit = async (
+        e: React.FormEvent<HTMLFormElement>
+    ) => {
+        e.preventDefault();
+
+        setLoading(true);
+
+        try {
+            // SAVE TO GOOGLE SHEET
+            await fetch(
+                "https://script.google.com/macros/s/AKfycbyoVTvQz9ycrrLexy6KkPuDwR47uc8LgCL2M2r3qqMB-u2JU6KsMBlvccuG3tIpOly5/exec",
+                {
+                    method: "POST",
+                    body: JSON.stringify(formData),
+                }
+            );
+
+            // WHATSAPP MESSAGE
+            const whatsappMessage = `
+New Contact Form 🚀
+
+Name: ${formData.name}
+Email: ${formData.email}
+Subject: ${formData.subject}
+
+Message:
+${formData.message}
+`;
+
+            // YOUR WHATSAPP NUMBER
+            const phoneNumber = "918136951157";
+
+            window.open(
+                `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+                    whatsappMessage
+                )}`,
+                "_blank"
+            );
+
+            alert("Message sent successfully");
+
+            setFormData({
+                name: "",
+                email: "",
+                subject: "",
+                message: "",
+            });
+
+        } catch (error) {
+            console.log(error);
+            alert("Something went wrong");
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <>
             <Navbar />
@@ -19,7 +94,6 @@ function ContactPage() {
             <div className="min-h-screen overflow-hidden bg-black text-white">
                 {/* HERO SECTION */}
                 <section className="relative border-b border-white/[0.08]">
-                    {/* Glow Effects */}
                     <div className="absolute left-1/4 top-0 h-[500px] w-[500px] rounded-full bg-indigo-600/20 blur-[160px]" />
                     <div className="absolute bottom-0 right-1/4 h-[500px] w-[500px] rounded-full bg-purple-600/20 blur-[160px]" />
 
@@ -45,8 +119,7 @@ function ContactPage() {
 
                 {/* CONTACT SECTION */}
                 <section className="relative px-6 py-28">
-                    {/* Background Glow */}
-                    {/* Premium Background Glow */}
+
                     <div className="absolute left-[-120px] top-[20%] h-[520px] w-[520px] rounded-full bg-indigo-500/20 blur-[180px]" />
 
                     <div className="absolute right-[-120px] bottom-[10%] h-[520px] w-[520px] rounded-full bg-purple-500/20 blur-[180px]" />
@@ -54,6 +127,7 @@ function ContactPage() {
                     <div className="absolute left-1/2 top-1/2 h-[320px] w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/10 blur-[140px]" />
 
                     <div className="relative z-10 mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.95fr_1.2fr]">
+
                         {/* LEFT SIDE */}
                         <div>
                             <p className="mb-4 text-xs uppercase tracking-[0.3em] text-zinc-500">
@@ -73,6 +147,7 @@ function ContactPage() {
 
                             {/* Contact Cards */}
                             <div className="mt-10 space-y-5">
+
                                 {/* EMAIL */}
                                 <div className="group flex items-start gap-4 rounded-3xl border border-white/[0.08] bg-zinc-950/70 p-5 backdrop-blur-sm transition-all duration-300 hover:border-indigo-500/50 hover:shadow-[0_0_35px_rgba(99,102,241,0.18)]">
                                     <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-indigo-500/20 bg-indigo-500/10">
@@ -85,12 +160,11 @@ function ContactPage() {
                                         </p>
 
                                         <p className="mt-2 text-white">
-                                            qodextech@gmail.com
+                                            hellotexstack@gmail.com
                                         </p>
                                     </div>
                                 </div>
 
-                                {/* PHONE */}
                                 {/* PHONE */}
                                 <div className="group flex items-start gap-4 rounded-3xl border border-white/[0.08] bg-zinc-950/70 p-5 backdrop-blur-sm transition-all duration-300 hover:border-purple-500/50 hover:shadow-[0_0_35px_rgba(168,85,247,0.18)]">
                                     <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-purple-500/20 bg-purple-500/10">
@@ -139,6 +213,7 @@ function ContactPage() {
                                 </p>
 
                                 <div className="flex items-center gap-4">
+
                                     <a
                                         href="https://instagram.com"
                                         target="_blank"
@@ -165,7 +240,6 @@ function ContactPage() {
                                     >
                                         <Facebook className="h-5 w-5" />
                                     </a>
-
                                     <a
                                         href="https://rave.com"
                                         target="_blank"
@@ -183,17 +257,19 @@ function ContactPage() {
                         </div>
 
                         {/* FORM */}
-                        {/* Center Glow */}
                         <div className="relative overflow-hidden rounded-3xl border border-white/[0.08] bg-zinc-950/60 p-8 backdrop-blur-sm md:p-10">
 
-                            {/* Center Glow */}
                             <div className="pointer-events-none absolute left-1/2 top-1/2 h-[320px] w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/10 blur-[120px]" />
 
                             <h3 className="relative z-10 mb-8 text-2xl font-semibold">
                                 Send a Message
                             </h3>
 
-                            <form className="relative z-10 space-y-6">
+                            <form
+                                onSubmit={handleSubmit}
+                                className="relative z-10 space-y-6"
+                            >
+
                                 {/* NAME */}
                                 <div>
                                     <label className="mb-2 block text-sm text-zinc-400">
@@ -202,7 +278,11 @@ function ContactPage() {
 
                                     <input
                                         type="text"
+                                        name="name"
+                                        value={formData.name}
+                                        onChange={handleChange}
                                         placeholder="Enter your name"
+                                        required
                                         className="w-full rounded-2xl border border-white/[0.08] bg-black/60 px-5 py-4 text-white outline-none transition-all duration-300 placeholder:text-zinc-600 focus:border-indigo-500/60 focus:shadow-[0_0_20px_rgba(99,102,241,0.15)]"
                                     />
                                 </div>
@@ -215,12 +295,16 @@ function ContactPage() {
 
                                     <input
                                         type="email"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
                                         placeholder="Enter your email"
+                                        required
                                         className="w-full rounded-2xl border border-white/[0.08] bg-black/60 px-5 py-4 text-white outline-none transition-all duration-300 placeholder:text-zinc-600 focus:border-indigo-500/60 focus:shadow-[0_0_20px_rgba(99,102,241,0.15)]"
                                     />
                                 </div>
 
-                                {/* SUBJECT */}
+                                {/* SUBJECT
                                 <div>
                                     <label className="mb-2 block text-sm text-zinc-400">
                                         Subject
@@ -228,10 +312,14 @@ function ContactPage() {
 
                                     <input
                                         type="text"
+                                        name="subject"
+                                        value={formData.subject}
+                                        onChange={handleChange}
                                         placeholder="Project discussion"
+                                        required
                                         className="w-full rounded-2xl border border-white/[0.08] bg-black/60 px-5 py-4 text-white outline-none transition-all duration-300 placeholder:text-zinc-600 focus:border-indigo-500/60 focus:shadow-[0_0_20px_rgba(99,102,241,0.15)]"
                                     />
-                                </div>
+                                </div> */}
 
                                 {/* MESSAGE */}
                                 <div>
@@ -241,7 +329,11 @@ function ContactPage() {
 
                                     <textarea
                                         rows={6}
+                                        name="message"
+                                        value={formData.message}
+                                        onChange={handleChange}
                                         placeholder="Tell us about your project..."
+                                        required
                                         className="w-full resize-none rounded-2xl border border-white/[0.08] bg-black/60 px-5 py-4 text-white outline-none transition-all duration-300 placeholder:text-zinc-600 focus:border-indigo-500/60 focus:shadow-[0_0_20px_rgba(99,102,241,0.15)]"
                                     />
                                 </div>
@@ -249,9 +341,10 @@ function ContactPage() {
                                 {/* BUTTON */}
                                 <button
                                     type="submit"
-                                    className="group inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-8 py-4 text-sm font-medium text-white transition-all duration-300 hover:border-indigo-500/50 hover:bg-indigo-500/20 hover:shadow-[0_0_35px_rgba(99,102,241,0.45)]"
+                                    disabled={loading}
+                                    className="group inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-8 py-4 text-sm font-medium text-white transition-all duration-300 hover:border-indigo-500/50 hover:bg-indigo-500/20 hover:shadow-[0_0_35px_rgba(99,102,241,0.45)] disabled:opacity-50"
                                 >
-                                    Send Message
+                                    {loading ? "Sending..." : "Send Message"}
 
                                     <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                                 </button>

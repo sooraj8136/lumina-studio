@@ -29,7 +29,7 @@ export default function About() {
           <Reveal delay={0.1}>
             <div>
               <p className="text-lg leading-relaxed text-zinc-400">
-                Qodex Tech is a modern web development studio focused on
+                Tech stack is a modern web development studio focused on
                 building fast, scalable, and visually engaging websites and web
                 applications. We combine clean UI design with modern
                 technologies to help businesses create a strong digital
