@@ -13,14 +13,20 @@ import {
 
 function ContactPage() {
 
-    const [formData, setFormData] = useState({
+    const initialFormData = {
         name: "",
         email: "",
-        subject: "",
+        phone: "",
         message: "",
-    });
+    };
 
-    const [loading, setLoading] = useState(false);
+    const [formData, setFormData] = useState(initialFormData);
+
+    const [submitState, setSubmitState] = useState<
+        "idle" | "submitting" | "success" | "error"
+    >("idle");
+
+    const [statusMessage, setStatusMessage] = useState("");
 
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -30,18 +36,31 @@ function ContactPage() {
             [e.target.name]: e.target.value,
         });
     };
-
     const handleSubmit = async (
         e: React.FormEvent<HTMLFormElement>
     ) => {
         e.preventDefault();
 
-        setLoading(true);
+        if (
+            !formData.name ||
+            !formData.email ||
+            !formData.phone ||
+            !formData.message
+        ) {
+            setSubmitState("error");
+
+            setStatusMessage("Please complete all fields.");
+
+            return;
+        }
+
+        setSubmitState("submitting");
+        setStatusMessage("");
 
         try {
             // SAVE TO GOOGLE SHEET
             await fetch(
-                "https://script.google.com/macros/s/AKfycbyoVTvQz9ycrrLexy6KkPuDwR47uc8LgCL2M2r3qqMB-u2JU6KsMBlvccuG3tIpOly5/exec",
+                "https://script.google.com/macros/s/AKfycbzfq6TJfCeZyQqP0F3DITHL5c6ipEEJZE5aUS4HOnQAS79YdyEsMiCAcAQOKw1eZmq7iQ/exec",
                 {
                     method: "POST",
                     body: JSON.stringify(formData),
@@ -54,7 +73,7 @@ New Contact Form 🚀
 
 Name: ${formData.name}
 Email: ${formData.email}
-Subject: ${formData.subject}
+Phone: ${formData.phone}
 
 Message:
 ${formData.message}
@@ -70,20 +89,23 @@ ${formData.message}
                 "_blank"
             );
 
-            alert("Message sent successfully");
+            setSubmitState("success");
 
-            setFormData({
-                name: "",
-                email: "",
-                subject: "",
-                message: "",
-            });
+            setStatusMessage(
+                "Thanks! Your message has been successfully sent."
+            );
+
+            setFormData(initialFormData);
 
         } catch (error) {
-            console.log(error);
-            alert("Something went wrong");
-        } finally {
-            setLoading(false);
+            setSubmitState("error");
+
+            const message =
+                error instanceof Error
+                    ? error.message
+                    : "Something went wrong while sending your message.";
+
+            setStatusMessage(message);
         }
     };
 
@@ -160,7 +182,7 @@ ${formData.message}
                                         </p>
 
                                         <p className="mt-2 text-white">
-                                            hellotexstack@gmail.com
+                                            techstackconnect@gmail.com
                                         </p>
                                     </div>
                                 </div>
@@ -215,7 +237,7 @@ ${formData.message}
                                 <div className="flex items-center gap-4">
 
                                     <a
-                                        href="https://instagram.com"
+                                        href="https://www.instagram.com/techstack.connect/"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="flex h-12 w-12 items-center justify-center rounded-full border border-zinc-700 text-zinc-400 transition-all duration-300 hover:border-indigo-500 hover:text-white hover:shadow-[0_0_25px_rgba(99,102,241,0.6)]"
@@ -304,22 +326,23 @@ ${formData.message}
                                     />
                                 </div>
 
-                                {/* SUBJECT
+                                {/* PHONE */}
                                 <div>
                                     <label className="mb-2 block text-sm text-zinc-400">
-                                        Subject
+                                        Phone Number
                                     </label>
 
                                     <input
-                                        type="text"
-                                        name="subject"
-                                        value={formData.subject}
+                                        type="tel"
+                                        name="phone"
+                                        value={formData.phone}
                                         onChange={handleChange}
-                                        placeholder="Project discussion"
+                                        placeholder="Enter your phone number"
                                         required
+                                        disabled={submitState === "submitting"}
                                         className="w-full rounded-2xl border border-white/[0.08] bg-black/60 px-5 py-4 text-white outline-none transition-all duration-300 placeholder:text-zinc-600 focus:border-indigo-500/60 focus:shadow-[0_0_20px_rgba(99,102,241,0.15)]"
                                     />
-                                </div> */}
+                                </div>
 
                                 {/* MESSAGE */}
                                 <div>
@@ -341,13 +364,25 @@ ${formData.message}
                                 {/* BUTTON */}
                                 <button
                                     type="submit"
-                                    disabled={loading}
+                                    disabled={submitState === "submitting"}
                                     className="group inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-8 py-4 text-sm font-medium text-white transition-all duration-300 hover:border-indigo-500/50 hover:bg-indigo-500/20 hover:shadow-[0_0_35px_rgba(99,102,241,0.45)] disabled:opacity-50"
                                 >
-                                    {loading ? "Sending..." : "Send Message"}
+                                    {submitState === "submitting"
+                                        ? "Sending..."
+                                        : "Send Message"}
 
                                     <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                                 </button>
+                                {statusMessage ? (
+                                    <p
+                                        className={`mt-4 text-sm ${submitState === "success"
+                                                ? "text-emerald-400"
+                                                : "text-red-400"
+                                            }`}
+                                    >
+                                        {statusMessage}
+                                    </p>
+                                ) : null}
                             </form>
                         </div>
                     </div>

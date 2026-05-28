@@ -62,7 +62,7 @@ export default function Contact() {
     try {
       // SAVE TO GOOGLE SHEET
       await fetch(
-        "https://script.google.com/macros/s/AKfycbyoVTvQz9ycrrLexy6KkPuDwR47uc8LgCL2M2r3qqMB-u2JU6KsMBlvccuG3tIpOly5/exec",
+        "https://script.google.com/macros/s/AKfycbzfq6TJfCeZyQqP0F3DITHL5c6ipEEJZE5aUS4HOnQAS79YdyEsMiCAcAQOKw1eZmq7iQ/exec",
         {
           method: "POST",
           body: JSON.stringify(formData),
@@ -161,7 +161,7 @@ ${formData.message}
                     </p>
 
                     <p className="mt-2 text-white">
-                      hellotexstack@gmail.com
+                      techstackconnect@gmail.com
                     </p>
                   </div>
                 </div>
@@ -215,7 +215,7 @@ ${formData.message}
 
                 <div className="flex items-center gap-4">
                   <a
-                    href="https://instagram.com"
+                    href="https://www.instagram.com/techstack.connect/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex h-12 w-12 items-center justify-center rounded-full border border-zinc-700 text-zinc-400 transition-all duration-300 hover:border-indigo-500 hover:text-white hover:shadow-[0_0_25px_rgba(99,102,241,0.6)]"
