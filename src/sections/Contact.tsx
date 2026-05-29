@@ -56,13 +56,38 @@ export default function Contact() {
       return;
     }
 
+    // EMAIL VALIDATION
+    const emailRegex =
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|in|org|net|edu|gov|co)$/i;
+
+    if (!emailRegex.test(formData.email)) {
+      toast.error("Please enter a valid email address.");
+
+      setSubmitState("error");
+      setStatusMessage("Invalid email address.");
+
+      return;
+    }
+
+    // PHONE VALIDATION
+    const phoneRegex = /^[0-9]{10}$/;
+
+    if (!phoneRegex.test(formData.phone)) {
+      toast.error("Please enter a valid 10-digit phone number.");
+
+      setSubmitState("error");
+      setStatusMessage("Invalid phone number.");
+
+      return;
+    }
+
     setSubmitState("submitting");
     setStatusMessage("");
 
     try {
       // SAVE TO GOOGLE SHEET
       await fetch(
-        "https://script.google.com/macros/s/AKfycbzfq6TJfCeZyQqP0F3DITHL5c6ipEEJZE5aUS4HOnQAS79YdyEsMiCAcAQOKw1eZmq7iQ/exec",
+        "https://script.google.com/macros/s/AKfycbwQygomE7WyxPh5E5Z3HQIW0hJ8HqxRCEB3sYtxdpU4zuzDj-fYc4uEYifwP6THXJ-9/exec",
         {
           method: "POST",
           body: JSON.stringify(formData),
@@ -81,7 +106,6 @@ Message:
 ${formData.message}
 `;
 
-      // YOUR WHATSAPP NUMBER
       const phoneNumber = "918136951157";
 
       window.open(
@@ -130,18 +154,19 @@ ${formData.message}
       <div className="relative z-10 mx-auto max-w-7xl">
 
         <Reveal delay={0.15}>
-          <div className="mt-6 grid gap-10 lg:grid-cols-[0.95fr_1.2fr]">
+          <div className="mt-6 grid gap-14 lg:grid-cols-[0.95fr_1.2fr]">
+
             {/* LEFT SIDE */}
             <div>
               <p className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-zinc-400">
                 Get In Touch
               </p>
 
-              <h3 className="text-4xl font-semibold tracking-tight md:text-5xl">
+              <h3 className="text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
                 We’d Love To Hear From You
               </h3>
 
-              <p className="mt-6 text-lg leading-relaxed text-zinc-400">
+              <p className="mt-5 text-base leading-relaxed text-zinc-400 sm:text-lg">
                 Whether you're looking for a modern website,
                 scalable web application, or complete digital
                 solution — our team is ready to help bring your
@@ -149,10 +174,12 @@ ${formData.message}
               </p>
 
               <div className="mt-10 space-y-5">
+
                 {/* Email */}
-                <div className="group flex items-start gap-4 rounded-3xl border border-white/[0.08] bg-zinc-950/70 p-5 backdrop-blur-sm transition-all duration-300 hover:border-indigo-500/50 hover:shadow-[0_0_35px_rgba(99,102,241,0.18)]">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-indigo-500/20 bg-indigo-500/10">
-                    <Mail className="h-6 w-6 text-indigo-400" />
+                <div className="group flex items-start gap-4 rounded-3xl border border-white/[0.08] bg-zinc-950/70 p-4 backdrop-blur-sm transition-all duration-300 hover:border-indigo-500/50 hover:shadow-[0_0_35px_rgba(99,102,241,0.18)] sm:p-5">
+
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-indigo-500/20 bg-indigo-500/10 sm:h-14 sm:w-14">
+                    <Mail className="h-5 w-5 text-indigo-400 sm:h-6 sm:w-6" />
                   </div>
 
                   <div>
@@ -160,16 +187,17 @@ ${formData.message}
                       Email
                     </p>
 
-                    <p className="mt-2 text-white">
+                    <p className="mt-2 break-all text-sm text-white sm:text-base">
                       techstackconnect@gmail.com
                     </p>
                   </div>
                 </div>
 
                 {/* Phone */}
-                <div className="group flex items-start gap-4 rounded-3xl border border-white/[0.08] bg-zinc-950/70 p-5 backdrop-blur-sm transition-all duration-300 hover:border-purple-500/50 hover:shadow-[0_0_35px_rgba(168,85,247,0.18)]">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-purple-500/20 bg-purple-500/10">
-                    <Phone className="h-6 w-6 text-purple-400" />
+                <div className="group flex items-start gap-4 rounded-3xl border border-white/[0.08] bg-zinc-950/70 p-4 backdrop-blur-sm transition-all duration-300 hover:border-purple-500/50 hover:shadow-[0_0_35px_rgba(168,85,247,0.18)] sm:p-5">
+
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-purple-500/20 bg-purple-500/10 sm:h-14 sm:w-14">
+                    <Phone className="h-5 w-5 text-purple-400 sm:h-6 sm:w-6" />
                   </div>
 
                   <div>
@@ -178,11 +206,11 @@ ${formData.message}
                     </p>
 
                     <div className="mt-2 space-y-1">
-                      <p className="text-white">
+                      <p className="text-sm text-white sm:text-base">
                         +91 89212 34567
                       </p>
 
-                      <p className="text-white">
+                      <p className="text-sm text-white sm:text-base">
                         +91 98765 43210
                       </p>
                     </div>
@@ -190,9 +218,10 @@ ${formData.message}
                 </div>
 
                 {/* Location */}
-                <div className="group flex items-start gap-4 rounded-3xl border border-white/[0.08] bg-zinc-950/70 p-5 backdrop-blur-sm transition-all duration-300 hover:border-emerald-500/50 hover:shadow-[0_0_35px_rgba(16,185,129,0.18)]">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-emerald-500/20 bg-emerald-500/10">
-                    <MapPin className="h-6 w-6 text-emerald-400" />
+                <div className="group flex items-start gap-4 rounded-3xl border border-white/[0.08] bg-zinc-950/70 p-4 backdrop-blur-sm transition-all duration-300 hover:border-emerald-500/50 hover:shadow-[0_0_35px_rgba(16,185,129,0.18)] sm:p-5">
+
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-emerald-500/20 bg-emerald-500/10 sm:h-14 sm:w-14">
+                    <MapPin className="h-5 w-5 text-emerald-400 sm:h-6 sm:w-6" />
                   </div>
 
                   <div>
@@ -200,7 +229,7 @@ ${formData.message}
                       Location
                     </p>
 
-                    <p className="mt-2 text-white">
+                    <p className="mt-2 text-sm text-white sm:text-base">
                       Kerala, India
                     </p>
                   </div>
@@ -213,12 +242,13 @@ ${formData.message}
                   Follow Us
                 </p>
 
-                <div className="flex items-center gap-4">
+                <div className="flex flex-wrap items-center gap-4">
+
                   <a
                     href="https://www.instagram.com/techstack.connect/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-12 w-12 items-center justify-center rounded-full border border-zinc-700 text-zinc-400 transition-all duration-300 hover:border-indigo-500 hover:text-white hover:shadow-[0_0_25px_rgba(99,102,241,0.6)]"
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-zinc-700 text-zinc-400 transition-all duration-300 hover:border-indigo-500 hover:text-white hover:shadow-[0_0_25px_rgba(99,102,241,0.6)] sm:h-12 sm:w-12"
                   >
                     <Instagram className="h-5 w-5" />
                   </a>
@@ -227,7 +257,7 @@ ${formData.message}
                     href="https://linkedin.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-12 w-12 items-center justify-center rounded-full border border-zinc-700 text-zinc-400 transition-all duration-300 hover:border-indigo-500 hover:text-white hover:shadow-[0_0_25px_rgba(99,102,241,0.6)]"
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-zinc-700 text-zinc-400 transition-all duration-300 hover:border-indigo-500 hover:text-white hover:shadow-[0_0_25px_rgba(99,102,241,0.6)] sm:h-12 sm:w-12"
                   >
                     <Linkedin className="h-5 w-5" />
                   </a>
@@ -236,7 +266,7 @@ ${formData.message}
                     href="https://facebook.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-12 w-12 items-center justify-center rounded-full border border-zinc-700 text-zinc-400 transition-all duration-300 hover:border-indigo-500 hover:text-white hover:shadow-[0_0_25px_rgba(99,102,241,0.6)]"
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-zinc-700 text-zinc-400 transition-all duration-300 hover:border-indigo-500 hover:text-white hover:shadow-[0_0_25px_rgba(99,102,241,0.6)] sm:h-12 sm:w-12"
                   >
                     <Facebook className="h-5 w-5" />
                   </a>
@@ -245,12 +275,12 @@ ${formData.message}
                     href="https://rave.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-12 w-12 items-center justify-center rounded-full border border-zinc-700 text-zinc-400 transition-all duration-300 hover:border-indigo-500 hover:text-white hover:shadow-[0_0_25px_rgba(99,102,241,0.6)]"
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-zinc-700 text-zinc-400 transition-all duration-300 hover:border-indigo-500 hover:text-white hover:shadow-[0_0_25px_rgba(99,102,241,0.6)] sm:h-12 sm:w-12"
                   >
                     <img
                       src="/rave-logo.png"
                       alt="Rave"
-                      className="h-6 w-6 object-contain"
+                      className="h-5 w-5 object-contain sm:h-6 sm:w-6"
                     />
                   </a>
                 </div>
@@ -260,13 +290,14 @@ ${formData.message}
             {/* FORM */}
             <form
               onSubmit={handleSubmit}
-              className="rounded-3xl border border-white/[0.08] bg-zinc-950/60 p-8 backdrop-blur-sm md:p-10"
+              className="rounded-3xl border border-white/[0.08] bg-zinc-950/60 p-5 backdrop-blur-sm sm:p-7 md:p-10"
             >
               <h3 className="mb-8 text-2xl font-semibold">
                 Send a Message
               </h3>
 
-              <div className="grid gap-6 sm:grid-cols-2">
+              <div className="space-y-5">
+
                 {/* Name */}
                 <label className="block">
                   <span className="mb-2 block text-sm text-zinc-400">
@@ -281,7 +312,7 @@ ${formData.message}
                     onChange={handleChange}
                     placeholder="Enter your name"
                     disabled={submitState === "submitting"}
-                    className="w-full rounded-2xl border border-white/[0.08] bg-black/60 px-5 py-4 text-white outline-none transition-all duration-300 placeholder:text-zinc-600 focus:border-indigo-500/60 focus:shadow-[0_0_20px_rgba(99,102,241,0.15)]"
+                    className="w-full rounded-2xl border border-white/[0.08] bg-black/60 px-4 py-3.5 text-white outline-none transition-all duration-300 placeholder:text-zinc-600 focus:border-indigo-500/60 focus:shadow-[0_0_20px_rgba(99,102,241,0.15)] sm:px-5 sm:py-4"
                   />
                 </label>
 
@@ -299,12 +330,12 @@ ${formData.message}
                     onChange={handleChange}
                     placeholder="Enter your email"
                     disabled={submitState === "submitting"}
-                    className="w-full rounded-2xl border border-white/[0.08] bg-black/60 px-5 py-4 text-white outline-none transition-all duration-300 placeholder:text-zinc-600 focus:border-indigo-500/60 focus:shadow-[0_0_20px_rgba(99,102,241,0.15)]"
+                    className="w-full rounded-2xl border border-white/[0.08] bg-black/60 px-4 py-3.5 text-white outline-none transition-all duration-300 placeholder:text-zinc-600 focus:border-indigo-500/60 focus:shadow-[0_0_20px_rgba(99,102,241,0.15)] sm:px-5 sm:py-4"
                   />
                 </label>
 
                 {/* Phone */}
-                <label className="block sm:col-span-2">
+                <label className="block">
                   <span className="mb-2 block text-sm text-zinc-400">
                     Phone Number
                   </span>
@@ -314,15 +345,24 @@ ${formData.message}
                     name="phone"
                     required
                     value={formData.phone}
-                    onChange={handleChange}
+                    onChange={(e) => {
+                      // ALLOW ONLY NUMBERS
+                      const value = e.target.value.replace(/\D/g, "");
+
+                      setFormData((prev) => ({
+                        ...prev,
+                        phone: value,
+                      }));
+                    }}
+                    maxLength={10}
                     placeholder="Enter your phone number"
                     disabled={submitState === "submitting"}
-                    className="w-full rounded-2xl border border-white/[0.08] bg-black/60 px-5 py-4 text-white outline-none transition-all duration-300 placeholder:text-zinc-600 focus:border-indigo-500/60 focus:shadow-[0_0_20px_rgba(99,102,241,0.15)]"
+                    className="w-full rounded-2xl border border-white/[0.08] bg-black/60 px-4 py-3.5 text-white outline-none transition-all duration-300 placeholder:text-zinc-600 focus:border-indigo-500/60 focus:shadow-[0_0_20px_rgba(99,102,241,0.15)] sm:px-5 sm:py-4"
                   />
                 </label>
 
                 {/* Message */}
-                <label className="block sm:col-span-2">
+                <label className="block">
                   <span className="mb-2 block text-sm text-zinc-400">
                     Project Brief
                   </span>
@@ -335,12 +375,13 @@ ${formData.message}
                     onChange={handleChange}
                     placeholder="Tell us about your project..."
                     disabled={submitState === "submitting"}
-                    className="w-full resize-none rounded-2xl border border-white/[0.08] bg-black/60 px-5 py-4 text-white outline-none transition-all duration-300 placeholder:text-zinc-600 focus:border-indigo-500/60 focus:shadow-[0_0_20px_rgba(99,102,241,0.15)]"
+                    className="w-full resize-none rounded-2xl border border-white/[0.08] bg-black/60 px-4 py-3.5 text-white outline-none transition-all duration-300 placeholder:text-zinc-600 focus:border-indigo-500/60 focus:shadow-[0_0_20px_rgba(99,102,241,0.15)] sm:px-5 sm:py-4"
                   />
                 </label>
               </div>
 
-              <div className="mt-8 flex flex-wrap items-center justify-between gap-5">
+              <div className="mt-8 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+
                 <div>
                   <p className="text-sm text-zinc-400">
                     We usually reply within one business day.
@@ -362,7 +403,7 @@ ${formData.message}
                 <button
                   type="submit"
                   disabled={submitState === "submitting"}
-                  className="group inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-8 py-4 text-sm font-medium text-white transition-all duration-300 hover:border-indigo-500/50 hover:bg-indigo-500/20 hover:shadow-[0_0_35px_rgba(99,102,241,0.45)] disabled:cursor-not-allowed disabled:opacity-70"
+                  className="group inline-flex w-full items-center justify-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-8 py-4 text-sm font-medium text-white transition-all duration-300 hover:border-indigo-500/50 hover:bg-indigo-500/20 hover:shadow-[0_0_35px_rgba(99,102,241,0.45)] disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
                 >
                   <span>
                     {submitState === "submitting"

@@ -118,7 +118,7 @@ export default function Footer() {
 
               {/* Instagram */}
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/techstack.connect/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 flex items-center justify-center rounded-full border border-zinc-700 hover:border-indigo-500 hover:text-white hover:shadow-[0_0_18px_rgba(99,102,241,0.7)] transition-all duration-300"
