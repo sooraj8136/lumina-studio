@@ -207,11 +207,11 @@ ${formData.message}
 
                     <div className="mt-2 space-y-1">
                       <p className="text-sm text-white sm:text-base">
-                        +91 89212 34567
+                        +91 89439 26520
                       </p>
 
                       <p className="text-sm text-white sm:text-base">
-                        +91 98765 43210
+                        +91 8136951157
                       </p>
                     </div>
                   </div>

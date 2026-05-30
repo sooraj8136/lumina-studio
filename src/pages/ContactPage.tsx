@@ -246,7 +246,7 @@ ${formData.message}
                                             </p>
 
                                             <p className="text-sm sm:text-base text-zinc-400">
-                                                +91 89212 34567
+                                                +91 8136951157
                                             </p>
                                         </div>
                                     </div>
